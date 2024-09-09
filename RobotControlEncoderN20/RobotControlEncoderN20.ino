@@ -25,7 +25,7 @@ int enRB = 3;
 volatile int leftEnCount = 0; // # of pulses by the left encoders
 volatile int rightEnCount = 0; // # of pulses by the right encoders
 
-const int pulses_per_rev = 700; 
+int pulses_per_rev = 700; 
 const float wheel_radius = 2.159; //cm
 const float wheel_diameter = wheel_radius * 2;
 const float circle_radius = 100; // cm
