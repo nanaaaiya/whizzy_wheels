@@ -103,6 +103,46 @@ void loop() {
 
 }
 
+void half_circle_2m (int speed) {
+
+  float radius_inner = circle_radius - (wheel_distance / 2.0);  // cm
+  float radius_outer = circle_radius + (wheel_distance / 2.0);  // cm
+
+  // Calculate the speed ratio
+  float speed_ratio = radius_outer / radius_inner;
+
+  // Set the speed for the motors
+  int inner_speed = speed;
+  int outer_speed = speed * speed_ratio;
+
+  // Set motor speeds and directions for circular motion
+  analogWrite(enL, inner_speed);  // Left motor (inner wheel)
+  analogWrite(enR, outer_speed);  // Right motor (outer wheel)
+
+  // Go forward in a circle
+  digitalWrite(inL1, LOW);
+  digitalWrite(inL2, HIGH);  // Left motor forward
+  digitalWrite(inR1, HIGH);
+  digitalWrite(inR2, LOW);   // Right motor forward
+
+
+  // half a circle
+
+  float circle_circumference = 3.14 * 200; // Half of a circle with diameter 200 cm (2 meters)
+  float rotations_inner = ((radius_inner * 3.14 )/2) -  / (2 * 3.14 * wheel_radius);
+  float rotations_outter = ((radius_outer * 3.14) /2) / (2 * 3.14 * wheel_radius);
+
+  int pulses_inner = rotations_inner * pulses_per_rev;
+  int pulses_outter = rotations_outter * pulses_per_rev;
+
+  
+  // Wait until both wheels complete the required number of pulses
+  while (leftEnCount < pulses_inner && rightEnCount <pulses_outter) {
+    // Continue moving until the target is reached
+  }
+  stop();
+}
+
 void circle_2m (int speed) {
 
   // Summarize vòng tròn 2m: Tính bán kính vòng tròn bánh trái (phía trong, gần tâm hình tròn) và bánh phải (bên ngoài), 
@@ -131,17 +171,7 @@ void circle_2m (int speed) {
   digitalWrite(inR2, LOW);   // Right motor forward
 
 
-  // half a circle
 
-  float circle_circumference = 3.14 * 200; // Half of a circle with diameter 200 cm (2 meters)
-  float rotations = (circle_circumference/2) / (2 * 3.14 * wheel_radius);
-  int pulses = rotations * pulses_per_rev;
-  
-  // Wait until both wheels complete the required number of pulses
-  while (leftEnCount < pulses && rightEnCount <pulses) {
-    // Continue moving until the target is reached
-  }
-  stop();
 }
 
 void goForward(int speed) {
