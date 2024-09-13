@@ -319,8 +319,8 @@ void compute_rpm() {
   stop();
   delay(2000);  
   
-  rpmLeft = (leftEnCount * 60) / pulses_per_rev;
-  rpmRight = (rightEnCount * 60) / pulses_per_rev; 
+  rpmLeft = float((float(leftEnCount) * 60.0) / pulses_per_rev);
+  rpmRight = float((float(rightEnCount) * 60.0) / pulses_per_rev); 
 
   // why when left/ right count is 2500, rpm only 23, 43 :D?
 
