@@ -78,7 +78,7 @@ void loop() {
   // delay(5000);
 
 
-  // spin_one_round();
+  spin_one_round();
 
   // test computing rpm
   // unsigned long startTime = millis();
@@ -94,7 +94,7 @@ void loop() {
 
 
   // test circle with 2 meters
-  circle_2m(100);
+  // circle_2m(100);
 
   // delay(10000);  // Drive for 10 seconds 
 
@@ -129,7 +129,7 @@ void half_circle_2m (int speed) {
   // half a circle
 
   float circle_circumference = 3.14 * 200; // Half of a circle with diameter 200 cm (2 meters)
-  float rotations_inner = ((radius_inner * 3.14 )/2) -  / (2 * 3.14 * wheel_radius);
+  float rotations_inner = ((radius_inner * 3.14 )/2)  / (2 * 3.14 * wheel_radius);
   float rotations_outter = ((radius_outer * 3.14) /2) / (2 * 3.14 * wheel_radius);
 
   int pulses_inner = rotations_inner * pulses_per_rev;
@@ -323,6 +323,7 @@ void compute_rpm() {
   rpmRight = float((float(rightEnCount) * 60.0) / pulses_per_rev); 
 
   // why when left/ right count is 2500, rpm only 23, 43 :D?
+  // this function produces incorrect outputs
 
   Serial.print("Left Encoder Count: ");
   Serial.println(leftEnCount);
