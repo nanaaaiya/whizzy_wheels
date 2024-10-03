@@ -24,11 +24,11 @@ const float r = 0.0216; // Radius of the wheels (meters)
 const float T = 0.5;      // Sampling time (seconds)
 
 // increase -> higher speed
-const float gamma = 0.2;  // Linear control gain
+const float gamma = 0.5;  // Linear control gain
 // controls how sharply the robot turns to align with its target
-const float lamda = 0.25; // Angular control gain
+const float lamda = 0.3; // Angular control gain
 // reduce deviation errors when the robot’s path isn't aligned well
-const float h = 0.15;     // Offset in angle calculation
+const float h = 0.2;     // Offset in angle calculation
 
 // Encoder constantss
 int pulses_per_rev = 700; 
@@ -141,14 +141,14 @@ void loop() {
   Serial.println(y);
   Serial.print(" Theta: ");
   Serial.println(theta);
-  Serial.print(" Left Speed: ");
-  Serial.println(v1);
-  Serial.print(" Right Speed: ");
-  Serial.println(v2);
-  Serial.println();
+  // Serial.print(" Left Speed: ");
+  // Serial.println(v1);
+  // Serial.print(" Right Speed: ");
+  // Serial.println(v2);
+  // Serial.println();
 
   Serial.println("=================");
-    Serial.println();
+  Serial.println();
 
 
 
@@ -164,22 +164,27 @@ void loop() {
 
 // Function to set the speed of the left wheel
 void set_speedL(float speed) {
-  // Serial.print("Left Speed:");
+  Serial.print("Left Speed:");
 
-  // Serial.println(speed);
-  int pwmValue = map(speed, 0, 460, 0, 255); // wL is in RPM, map it to 0-255  
-  // pwmValue = constrain(pwmValue, 0, 255); // Ensure the PWM value is within the valid range
-   analogWrite(enL, pwmValue);
+  Serial.println(speed);
+
+  // create a function to control the velo to improve accuracy: + offset
+
+  int pwmValue = map(speed, 0, 300, 100, 255); // wL is in RPM, map it to 0-255  
+  pwmValue = constrain(pwmValue, 100, 245); // Ensure the PWM value is within the valid range
+   analogWrite(enL, pwmValue + 10);
 }
 
 // Function to set the speed of the right wheel
 void set_speedR(float speed) {
-    // Serial.print("Right Speed:");
+    Serial.print("Right Speed:");
 
-  // Serial.println(speed);
+  Serial.println(speed);
 
-  int pwmValue = map(speed, 0, 460, 0, 255); 
-   analogWrite(enR, pwmValue);
+  int pwmValue = map(speed, 0, 300, 100, 255); 
+  pwmValue = constrain(pwmValue, 100, 245); 
+
+   analogWrite(enR, pwmValue + 10);
 }
 
 // Function to get the current speed of the left wheel

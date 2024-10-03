@@ -3,21 +3,21 @@
 // pin                  2         3      21      20      19      18
 
 // Left Motor
-int enL = 7;
+int enL = 6;
 int inL1 = 8;
 int inL2 = 9;
 
-// Right motor
-int enR = 6;
+// Right motor -
+int enR = 7;
 int inR1 = 10;
 int inR2 = 11;
 
 // For encoder
-int enLA = 18;
-int enLB = 19;
+int enLA = 19;
+int enLB = 18;
 
-int enRA = 2;
-int enRB = 3;
+int enRA = 3;
+int enRB = 2;
 
 // volatile keyword is used to tell the compiler that the value of  
 // the variable declared using volatile may change at any time
@@ -59,9 +59,8 @@ void setup()
 	pinMode(inR2, OUTPUT);
 	pinMode(inL1, OUTPUT);
 	pinMode(inL2, OUTPUT);
-	
-	// Turn off motors - Initial state
-	digitalWrite(inR1, LOW);
+
+  digitalWrite(inR1, LOW);
 	digitalWrite(inR2, LOW);
 	digitalWrite(inL1, LOW);
 	digitalWrite(inL2, LOW);
@@ -73,16 +72,16 @@ void loop() {
 
   
   //  turnLeft();
-  // goForward(30);
+  goForward(100);
   // stop();
   // delay(5000);
 
 
-  spin_one_round();
+  // spin_one_round();
 
   // test computing rpm
   // unsigned long startTime = millis();
-  // goForward(100);
+    // goForward(100);
   
   // // Wait for exactly 1 second (1000 milliseconds)
   // while (millis() - startTime < 1000) {
@@ -98,7 +97,7 @@ void loop() {
 
   // delay(10000);  // Drive for 10 seconds 
 
-  // stop();  // Stop the robot
+ // stop();  // Stop the robot
   // delay(5000);  // Wait for 5 seconds
 
 }
@@ -190,10 +189,10 @@ void goForward(int speed) {
   analogWrite(enL, speed);
 
 	// Turn on motor A & B
-	digitalWrite(inL1, LOW);
-	digitalWrite(inL2, HIGH);
-	digitalWrite(inR1, HIGH);
-	digitalWrite(inR2, LOW);
+	digitalWrite(inL1, HIGH);
+	digitalWrite(inL2, LOW);
+	digitalWrite(inR1, LOW);
+	digitalWrite(inR2, HIGH);
 
 }
 
