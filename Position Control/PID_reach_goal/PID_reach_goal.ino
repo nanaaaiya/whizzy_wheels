@@ -15,13 +15,29 @@ int enRB = 2;
 volatile int leftEnCount = 0; // # of pulses by the left encoders
 volatile int rightEnCount = 0; // # of pulses by the right encoders
 
+// PID parameters (adjust these to tune)
+// 1) Kp (Proportional Gain): determines how aggressively 
+//the controller reacts to the current error
+// Increase gradually until you see the system starting to 
+// oscillate or become unstable.
+
+// 2) Ki (Integral Gain): Addresses the accumulated error over time
+// helps eliminate steady-state errors but 
+// can lead to oscillations if set too high.
+// Increase until you notice that the 
+// steady-state error (offset from the desired value) is corrected
+
+// 3) Kd (Derivative Gain): Predicts future error based on 
+// its rate of change, helping to dampen oscillations and improve stability.
+// Increase to reduce the overshoot and oscillations by Kp or Ki.
+
 // PID control constants for distance and angle
-float Kp_distance = 2.0;
+float Kp_distance = 5.0;
 float Ki_distance = 0.01;
 float Kd_distance = 0.1;
 
 float Kp_angle = 5.0;
-float Ki_angle = 0.05;
+float Ki_angle = 0.01;
 float Kd_angle = 0.2;
 
 // Target position and orientation
@@ -35,7 +51,6 @@ float pre_error_distance = 0;
 float integral_angle = 0;
 float pre_error_angle = 0;
 
-// Robot state (assuming start position is (0, 0, 0))
 float currentX = 0.0;
 float currentY = 0.0;
 float currentTheta = 0.0; // degrees
