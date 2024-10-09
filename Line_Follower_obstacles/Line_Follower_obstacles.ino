@@ -42,12 +42,12 @@ int baseSpeedR = 65; // Base speed for the right motor
 
 // PID control variables
 // Proportional gain  measures “how far” the robot is away from the line
-float Kp = 7; 
+float Kp = 3; 
 // The integral term sums error to determine “how long” 
 // the robot has been away from the line
-float Ki = 0; // Integral gain
+float Ki = 0.01; // Integral gain
 // The derivative term assesses “how fast” error in the process is changing
-float Kd = 0; // Derivative gain
+float Kd = 6.5c; // Derivative gain
 
 // tune p, d, fuck i
 
