@@ -25,6 +25,9 @@ int enLB = 18;
 int enRA = 3;
 int enRB = 2;
 
+volatile int leftEnCount = 0; // # of pulses by the left encoders
+volatile int rightEnCount = 0; // # of pulses by the right encoders
+
 // Pin configuration for the line-following sensor
 int LFOut1 = 32;
 int LFOut2 = 34;
@@ -94,11 +97,11 @@ void setup() {
   obstacle = false;
   a = 0;
 
-  // // Setup encoder interrupts
-  // attachInterrupt(digitalPinToInterrupt(enLA), leftEnISRA, RISING);
-  // attachInterrupt(digitalPinToInterrupt(enLB), leftEnISRB, RISING);
-  // attachInterrupt(digitalPinToInterrupt(enRA), rightEnISRA, RISING);
-  // attachInterrupt(digitalPinToInterrupt(enRB), rightEnISRB, RISING);
+  // Setup encoder interrupts
+  attachInterrupt(digitalPinToInterrupt(enLA), leftEnISRA, RISING);
+  attachInterrupt(digitalPinToInterrupt(enLB), leftEnISRB, RISING);
+  attachInterrupt(digitalPinToInterrupt(enRA), rightEnISRA, RISING);
+  attachInterrupt(digitalPinToInterrupt(enRB), rightEnISRB, RISING);
 
   int sensor1 = digitalRead(LFOut1);
   int sensor2 = digitalRead(LFOut2);
@@ -360,3 +363,52 @@ void avoidObstacle(int distanceLeft, int distanceRight) {
     followWallLeft();
   }
 } 
+
+
+void travel_w_distance(int dist) { 
+  float circumference = 2.159 * 2 * 3.14; // cm
+  float rotations = dist/ circumference;
+  int pulses = rotations * 700;
+
+  stop();
+  delay(5000);
+
+  // Move forward
+  digitalWrite(inL1, HIGH);
+	digitalWrite(inL2, LOW);
+	digitalWrite(inR1, LOW);
+	digitalWrite(inR2, HIGH);
+  // Set motor speeds
+	analogWrite(enR, 50);
+  analogWrite(enL, 50);
+
+  // Wait until the required pulses are reached
+  while(leftEnCount < pulses && rightEnCount < pulses) {
+  }
+
+  stop();
+  // Serial.println(pulses);
+  // Serial.print("Left Encoder Count: ");
+  // Serial.println(leftEnCount);
+  // Serial.print("Right Encoder Count: ");
+  // Serial.println(rightEnCount);
+
+  // delay(5000); 
+
+}
+
+
+void leftEnISRA() {
+  leftEnCount++;
+}
+
+void leftEnISRB() {
+  leftEnCount++;
+}
+void rightEnISRA() {
+  rightEnCount++;
+}
+
+void rightEnISRB() {
+  rightEnCount++;
+}
