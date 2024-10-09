@@ -123,14 +123,14 @@ void loop() {
   distanceLeft = sonarLeft.dist();
   distanceRight = sonarRight.dist();
 
-  // Debugging print for sensor readings
-  Serial.print("Front: ");
-  Serial.print(distanceFront);
-  Serial.print(" cm, Left: ");
-  Serial.print(distanceLeft);
-  Serial.print(" cm, Right: ");
-  Serial.print(distanceRight);
-  Serial.println(" cm");
+  // // Debugging print for sensor readings
+  // Serial.print("Front: ");
+  // Serial.print(distanceFront);
+  // Serial.print(" cm, Left: ");
+  // Serial.print(distanceLeft);
+  // Serial.print(" cm, Right: ");
+  // Serial.print(distanceRight);
+  // Serial.println(" cm");
 
      // Calculate the error based on sensor readings
   int sensor1 = digitalRead(LFOut1);
@@ -148,6 +148,7 @@ void loop() {
   }
   if (obstacle == true){ 
     avoidObstacle(distanceLeft, distanceRight);
+  //  obstacle = false;
   }
 }
 
@@ -272,6 +273,9 @@ void followWallLeft() {
     turnRight();
     delay(200);
     lineFollow();
+    obstacle = false;
+    a = 0;
+
   }
   else{
     if (distanceLeft > 0 && distanceLeft < wallDistance) { 
@@ -300,6 +304,8 @@ void followWallRight() {
     turnLeft();
     delay(200);
     lineFollow();
+    obstacle = false;
+    a = 0;
   }
   else{
     if (distanceRight > 0 && distanceRight < wallDistance) { 
@@ -356,6 +362,7 @@ void avoidObstacle(int distanceLeft, int distanceRight) {
       a = 2;
     }
   }
+
   if (a == 1) {
     followWallRight();
   }
