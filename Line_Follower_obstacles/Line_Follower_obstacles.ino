@@ -47,7 +47,7 @@ float Kp = 3;
 // the robot has been away from the line
 float Ki = 0.01; // Integral gain
 // The derivative term assesses “how fast” error in the process is changing
-float Kd = 6.5c; // Derivative gain
+float Kd = 6.5; // Derivative gain
 
 // tune p, d, fuck i
 
