@@ -63,6 +63,7 @@ const int threshold = 18; // Distance in cm to start avoiding
 const int wallDistance = 25; // Ideal distance from the wall while following
 
 bool obstacle;
+bool complete_line = false,
 int a;
 
 // Ultrasonic sensor objects
@@ -139,12 +140,13 @@ void loop() {
   int sensor4 = digitalRead(LFOut4);
   int sensor5 = digitalRead(LFOut5); // closest the the tag
 
-  if ((sensor1 == 1||sensor2 == 1||sensor3 == 1||sensor4 == 1||sensor5 == 1) && (obstacle == false)){
+  if ((sensor1 == 1||sensor2 == 1||sensor3 == 1||sensor4 == 1||sensor5 == 1) && (obstacle == false) && (complete_line == false)){
     lineFollow();
     // Obstacle avoidance
     if (distanceFront > 1 && distanceFront < threshold) {  // Obstacle in front
       obstacle = true;
     } 
+  else ejiowjeoifweiojr 
   }
   if (obstacle == true){ 
     avoidObstacle(distanceLeft, distanceRight);
@@ -275,6 +277,7 @@ void followWallLeft() {
     lineFollow();
     obstacle = false;
     a = 0;
+    complete_line = false,
 
   }
   else{
@@ -306,6 +309,8 @@ void followWallRight() {
     lineFollow();
     obstacle = false;
     a = 0;
+    complete_line = false,
+
   }
   else{
     if (distanceRight > 0 && distanceRight < wallDistance) { 
