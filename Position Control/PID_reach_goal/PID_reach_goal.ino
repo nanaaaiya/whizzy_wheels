@@ -31,10 +31,10 @@ volatile int rightEnCount = 0; // # of pulses by the right encoders
 // its rate of change, helping to dampen oscillations and improve stability.
 // Increase to reduce the overshoot and oscillations by Kp or Ki.
 
-PID control constants for distance and angle
-float Kp_distance = 5.0;
-float Ki_distance = 0.01;
-float Kd_distance = 0.1;
+// PID control constants for distance and angle
+// float Kp_distance = 5.0;
+// float Ki_distance = 0.01;
+// float Kd_distance = 0.1;
 
 float Kp_angle = 5.0;
 float Ki_angle = 0.01;
@@ -46,8 +46,8 @@ float targetY = 0.81;     // meters
 float targetTheta = -90; // degrees
 
 // PID variables
-float integral_distance = 0;
-float pre_error_distance = 0;
+// float integral_distance = 0;
+// float pre_error_distance = 0;
 float integral_angle = 0;
 float pre_error_angle = 0;
 
@@ -103,13 +103,13 @@ void loop() {
   if (error_angle < -180) error_angle += 360;
 
   // Calculate PID outputs for distance
-  integral_distance += error_distance;
-  float derivative_distance = error_distance - pre_error_distance;
-  float output_distance = Kp_distance * error_distance +
-                          Ki_distance * integral_distance +
-                          Kd_distance * derivative_distance;
+  // integral_distance += error_distance;
+  // float derivative_distance = error_distance - pre_error_distance;
+  // float output_distance = Kp_distance * error_distance +
+  //                         Ki_distance * integral_distance +
+  //                         Kd_distance * derivative_distance;
                           
-  pre_error_distance = error_distance;
+  // pre_error_distance = error_distance;
 
   // Calculate PID outputs for angle
   integral_angle += error_angle;
@@ -120,9 +120,12 @@ void loop() {
 
   pre_error_angle = error_angle;
 
-  // Adjust motor speeds based on PID outputs
-  int leftSpeed = baseSpeed + output_distance - output_angle;
-  int rightSpeed = baseSpeed + output_distance + output_angle;
+  // // Adjust motor speeds based on PID outputs
+  // int leftSpeed = baseSpeed + output_distance - output_angle;
+  // int rightSpeed = baseSpeed + output_distance + output_angle;
+
+  int leftSpeed = baseSpeed - output_angle;
+  int rightSpeed = baseSpeed + output_angle;
 
   // Constrain motor speeds to PWM limits
   leftSpeed = constrain(leftSpeed, 50, 180);
