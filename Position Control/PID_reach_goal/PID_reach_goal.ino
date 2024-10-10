@@ -31,7 +31,7 @@ volatile int rightEnCount = 0; // # of pulses by the right encoders
 // its rate of change, helping to dampen oscillations and improve stability.
 // Increase to reduce the overshoot and oscillations by Kp or Ki.
 
-// PID control constants for distance and angle
+PID control constants for distance and angle
 float Kp_distance = 5.0;
 float Ki_distance = 0.01;
 float Kd_distance = 0.1;
