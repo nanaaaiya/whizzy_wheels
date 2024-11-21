@@ -130,7 +130,7 @@ class LocalizationNode(Node):
         # Only select landmark clusters
         # IMPORTANT: Adjust MIN_POINT and MAX_POINT to get the expected landmarks
         MIN_POINT = 3
-        MAX_POINT = 30
+        MAX_POINT = 60
         idx = [i for i, label in enumerate(labels) if dic[label] < MAX_POINT and dic[label] > MIN_POINT and label >= 0]
         clusters = {label: [i for i in idx if db.labels_[i] == label] for label in np.unique(db.labels_[idx])}
 
